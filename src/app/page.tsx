@@ -1,66 +1,74 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { createClient } from '@/utils/supabase/server'
+import MasonryGrid from '@/components/MasonryGrid'
+import Link from 'next/link'
 
-export default function Home() {
+export const dynamic = 'force-dynamic'
+
+export default async function Home() {
+  const supabase = await createClient()
+
+  // Check auth state for Hero CTA
+  const { data: { user } } = await supabase.auth.getUser()
+
+  // Fetch artwork for the mosaic
+  const { data: artworks } = await supabase
+    .from('artworks')
+    .select('*')
+    .limit(20)
+    .order('created_at', { ascending: false })
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="space-y-12">
+      {/* 1. The Visual Hook (Hero Section) */}
+      <section className="relative py-20 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
+
+        {/* Simplified SaaS Hero */}
+        <div className="max-w-2xl w-full text-center animate-fade-in pt-10">
+          <h1 className="text-5xl font-bold tracking-tight mb-6 text-white">
+            Showcase Creativity.
+          </h1>
+
+          <p className="text-lg text-secondary mb-10 leading-relaxed">
+            A platform for artists to upload and share their digital memories.
           </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            {user ? (
+              <Link
+                href="/profile"
+                className="btn btn-primary px-6 py-3"
+              >
+                Upload Artwork
+              </Link>
+            ) : (
+              <>
+                {/* Scroll to Grid or Link to Gallery? User said "Explore Gallery" */}
+                <a
+                  href="#gallery"
+                  className="btn btn-outline px-6 py-3"
+                >
+                  Explore Gallery
+                </a>
+                <Link
+                  href="/signup"
+                  className="btn btn-primary px-6 py-3"
+                >
+                  Join Now
+                </Link>
+              </>
+            )}
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* 2. The Mosaic Showcase */}
+      <section id="gallery" className="container mx-auto">
+        {/* Minimal Header if needed, or just the grid as 'Random public uploads' implies less structure */}
+        <div className="mb-8 px-4">
+          {/* Optional, can be empty or minimal */}
         </div>
-      </main>
+        <MasonryGrid artworks={artworks || []} />
+      </section>
     </div>
-  );
+  )
 }
