@@ -1,61 +1,53 @@
-# Creative Showcase
+# Suvojit's Gallery
 
-A premium full-stack web application for artists to share digital memories. Built with Next.js 14, Supabase, and a custom Glassmorphism design system.
+A premium digital asset management and showcase platform designed and curated by **Suvojit Santra**. This project demonstrates a robust secure backend combined with a minimalist, high-performance frontend interface.
 
-## Features
-- **Masonry Layout**: Dynamic grid for displaying artwork.
-- **Authentication**: Secure Login/Signup via Supabase.
-- **Image Upload**: Drag & Drop upload to Supabase Storage.
-- **User Dashboard**: Private management of uploads.
-- **Public Profiles**: Shareable user galleries.
+![Platform Preview](https://via.placeholder.com/800x400?text=Suvojit's+Gallery)
 
-## Tech Stack
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Vanilla CSS Modules (Glassmorphism design)
-- **Backend/DB**: Supabase (Auth, Postgres, Storage)
+## Core Capabilities
 
-## Getting Started
+- **Intelligent Masonry Grid**: A responsive, self-organizing layout engine that adapts to varying aspect ratios.
+- **Secure Authentication**: Enterprise-grade identity management.
+- **Private Workspaces**: Isolated dashboard environments for content curation.
+- **Strict Role Separation**: Clean architectural distinction between public-facing galleries and private administration.
+
+## Technical Architecture
+
+### Frontend
+- **Framework**: Next.js 14 (App Router / Turbopack)
+- **Language**: TypeScript (Strict Mode)
+- **Styling**: Modular CSS + Design Tokens (Custom Design System created by Suvojit)
+
+### Backend
+- **Database**: PostgreSQL (Supabase)
+- **Security**: Row Level Security (RLS) policies for granular access control.
+- **Storage**: Object Storage with signed URLs.
+
+## Local Development
 
 ### Prerequisites
 - Node.js 18+
-- Supabase Account
+- Supabase Project Credentials
 
 ### Installation
 
-1. **Clone & Install**
+1. **Clone the repository**
    ```bash
-   git clone <repo-url>
-   cd "creative showcase"
+   git clone https://github.com/SuvojitSantra/creative-showcase-
+   cd creative-showcase
+   ```
+
+2. **Install dependencies**
+   ```bash
    npm install
    ```
 
-2. **Environment Setup**
-   The `.env.local` is already configured with the provided credentials:
-   ```env
-   NEXT_PUBLIC_SUPABASE_URL=https://xmqwlbjhzeqchxcbjdee.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=...
-   ```
-
-3. **Database Setup**
-   Run the SQL schema in your Supabase SQL Editor (found in `supabase/schema.sql` - if you extracted it).
-   *Note: The schema has already been provided and assumed running.*
-
-4. **Run Development Server**
+3. **Start Dev Server**
    ```bash
    npm run dev
    ```
-   Open `http://localhost:3000`.
+   Access the application at `http://localhost:3000`.
 
-## Deployment (Vercel)
+---
 
-1. Push to GitHub.
-2. Import project in Vercel.
-3. Add Environment Variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`).
-4. Deploy.
-
-## Project Structure
-- `src/app`: App Router pages.
-- `src/components`: Reusable UI components.
-- `src/utils/supabase`: Client/Server helpers.
-- `src/app/globals.css`: Design system variables.
+© 2024 Suvojit's Gallery. Designed & Built by **Suvojit Santra**.

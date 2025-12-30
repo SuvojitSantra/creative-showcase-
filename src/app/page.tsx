@@ -24,8 +24,8 @@ export default async function Home() {
 
         {/* Simplified SaaS Hero */}
         <div className="max-w-2xl w-full text-center animate-fade-in pt-10">
-          <h1 className="text-5xl font-bold tracking-tight mb-6 text-white">
-            Showcase Creativity.
+          <h1 className="h1 mb-6 text-white">
+            Suvojit's Gallery
           </h1>
 
           <p className="text-lg text-secondary mb-10 leading-relaxed">

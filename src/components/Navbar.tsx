@@ -38,7 +38,7 @@ export default function Navbar() {
         <nav className="navbar">
             <div className="navbar-content">
                 <Link href="/" className="font-bold tracking-tight text-lg">
-                    Showcase
+                    Suvojit's Gallery
                 </Link>
 
                 <div className="flex items-center gap-4">

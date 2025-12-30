@@ -1,5 +1,5 @@
 :root {
-  /* Step 1.1: Color Palette */
+  /* Color Palette */
   --background: #0f1115;
   --card-bg: #161a21;
   --card-border: #23262f;
@@ -22,7 +22,7 @@
   margin: 0;
 }
 
-/* Step 1.2: Background Application */
+/* Background Application */
 html,
 body {
   max-width: 100vw;
@@ -39,7 +39,7 @@ a {
 
 /* --- Layout Structure --- */
 
-/* Step 1.3: Navbar */
+/* Navbar */
 .navbar {
   position: fixed;
   top: 0;
@@ -65,10 +65,9 @@ a {
   justify-content: space-between;
 }
 
-/* Step 1.4: Spacing + Step 3.6: Limit Page Width */
+/* Main Content Spacing */
 .main-content {
   padding-top: 96px;
-  /* 64px + 32px spacing */
   max-width: var(--max-width);
   margin: 0 auto;
   min-height: 100vh;
@@ -83,9 +82,9 @@ a {
   }
 }
 
-/* --- Step 2 & 3: Card-Based Layout and Micro-UX --- */
+/* --- Component Styles --- */
 
-/* 2.1 Card Container (General) */
+/* Card Container */
 .card {
   background: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -94,8 +93,7 @@ a {
   margin-bottom: 32px;
 }
 
-/* Step 3.1: Upload Card Wrapper (Stronger Card) */
-/* Step 4.5: Rhythm - Margin Bottom 56px */
+/* Section Spacing */
 .section-spacing {
   margin-bottom: 56px;
 }
@@ -105,7 +103,6 @@ a {
   border: 1px solid #23262f;
   border-radius: 16px;
   padding: 28px;
-  /* margin-bottom handled by wrapper div usually, or add here if direct */
 }
 
 .upload-card-wrapper h3 {
@@ -115,7 +112,7 @@ a {
   color: var(--foreground);
 }
 
-/* Step 3.2: Publish Button (Professional) */
+/* Primary Button */
 .publish-btn {
   background: #6366f1;
   color: white;
@@ -137,7 +134,7 @@ a {
   cursor: not-allowed;
 }
 
-/* Step 3.3: Improved Input Fields */
+/* Input Fields */
 input[type="text"],
 input[type="file"],
 .form-input {
@@ -161,7 +158,7 @@ input::placeholder {
   color: #6b7280;
 }
 
-/* Step 3.4 & 4.4: Upload Cards Micro Polish & Elevation */
+/* Uploads Grid */
 .uploads-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -174,12 +171,10 @@ input::placeholder {
   border-radius: 12px;
   overflow: hidden;
   transition: transform 0.2s ease, border 0.2s ease;
-  /* Step 4.4 */
 }
 
 .upload-card:hover {
   transform: translateY(-4px);
-  /* Step 4.4 */
   border-color: var(--accent);
 }
 
@@ -198,21 +193,19 @@ input::placeholder {
   font-size: 14px;
   color: #d4d4d8;
   font-weight: 500;
-  /* Step 4.6: Body weights */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 4px;
 }
 
-/* Step 4.3: Meta small text */
 .upload-meta small {
   font-size: 12px;
   color: #6b7280;
   font-weight: 400;
 }
 
-/* Step 3.5 & 4.6: Typography Hierarchy */
+/* Typography Hierarchy */
 h1,
 .h1 {
   font-size: 28px;
@@ -220,7 +213,6 @@ h1,
   color: #ffffff;
 }
 
-/* Step 4.6: Title 600 */
 h2,
 .h2 {
   font-size: 20px;
@@ -235,7 +227,6 @@ p,
   font-weight: 400;
 }
 
-/* Keep section title consistent with h2 */
 .section-title {
   font-size: 20px;
   font-weight: 600;
@@ -243,9 +234,7 @@ p,
   color: var(--foreground);
 }
 
-/* --- Components (Legacy / Shared) --- */
-
-/* Badge (Step 4.1 replacement style) */
+/* User Badge */
 .user-badge {
   background: rgba(99, 102, 241, 0.08);
   /* Softer background */
@@ -255,7 +244,6 @@ p,
   font-size: 12px;
   font-weight: 500;
   border: 1px solid rgba(99, 102, 241, 0.1);
-  /* Very subtle if kept, or removed */
 }
 
 /* Nav Button Specifics */
@@ -348,13 +336,11 @@ p,
   font-weight: 600;
 }
 
-/* Enforce 600 */
 .tracking-tight {
   letter-spacing: -0.015em;
 }
 
-/* Grid System */
-/* Grid System (Step 1 Core: Masonry) */
+/* Grid System (Masonry) */
 .masonry-columns {
   column-count: 1;
   column-gap: 16px;
@@ -378,7 +364,14 @@ p,
   }
 }
 
-/* Step 4.2: Auth Page Polish (Centered Card) */
+.break-inside-avoid {
+  break-inside: avoid;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Auth Page Styles (Centered Card) */
 .auth-container {
   min-height: calc(100vh - var(--nav-height));
   display: flex;

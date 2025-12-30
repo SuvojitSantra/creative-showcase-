@@ -88,7 +88,7 @@ export default function DashboardGrid({ initialArtworks }: { initialArtworks: Ar
                         {/* Overlay */}
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                        {/* Step 1: Delete Button (Top Right) */}
+                        {/* Delete Action Action */}
                         <button
                             onClick={() => handleDelete(art.id)}
                             disabled={deletingId === art.id}
