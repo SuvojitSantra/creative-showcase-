@@ -11,12 +11,15 @@ def safe_rerun():
     falls back to updating query params which also triggers a rerun, and finally
     asks the user to reload the page if nothing else works.
     """
-    try:
-        st.experimental_rerun()
-        return
-    except Exception:
-        # not available in current Streamlit runtime
-        pass
+    # Some Streamlit builds don't expose `experimental_rerun` at all.
+    # Use hasattr() to avoid raising AttributeError in the first place.
+    if hasattr(st, "experimental_rerun"):
+        try:
+            st.experimental_rerun()
+            return
+        except Exception:
+            # If it exists but still fails, continue to fallback
+            pass
 
     try:
         params = st.experimental_get_query_params()
