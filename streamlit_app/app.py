@@ -3,6 +3,30 @@ import uuid
 import streamlit as st
 from supabase import create_client
 
+
+def safe_rerun():
+    """Try to programmatically rerun the Streamlit app.
+
+    Some Streamlit runtimes don't expose `st.experimental_rerun()`. This helper
+    falls back to updating query params which also triggers a rerun, and finally
+    asks the user to reload the page if nothing else works.
+    """
+    try:
+        st.experimental_rerun()
+        return
+    except Exception:
+        # not available in current Streamlit runtime
+        pass
+
+    try:
+        params = st.experimental_get_query_params()
+        params["_refresh"] = str(uuid.uuid4())
+        st.experimental_set_query_params(**params)
+        return
+    except Exception:
+        st.warning("Automatic refresh not supported in this environment — please reload the page to see updates.")
+
+
 # Configuration
 MAX_UPLOAD_BYTES = 5 * 1024 * 1024  # 5 MB
 ALLOWED_EXT = {"png", "jpg", "jpeg", "webp", "gif"}
@@ -105,7 +129,7 @@ def main():
 
         st.markdown("---")
         if st.button("Refresh gallery"):
-            st.experimental_rerun()
+            safe_rerun()
 
     with col1:
         st.header("Gallery")
