@@ -27,7 +27,7 @@ def get_clients():
 
 def list_artworks(anon_client):
     try:
-        res = anon_client.table("artworks").select("*").order("id", ascending=True).execute()
+        res = anon_client.table("artworks").select("*").execute()
         return res.data or []
     except Exception as e:
         st.error(f"Error fetching artworks: {e}")
