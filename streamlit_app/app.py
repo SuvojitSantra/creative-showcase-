@@ -140,4 +140,15 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        # Catch unhandled exceptions and show a readable traceback in the UI
+        import traceback
+        try:
+            st.error(f"Unhandled error: {repr(e)}")
+            st.text(traceback.format_exc())
+        except Exception:
+            # If Streamlit is not available for some reason, print to stdout
+            print("Unhandled error:", repr(e))
+            traceback.print_exc()
