@@ -71,10 +71,13 @@ def upload_artwork(url, admin_client, uploaded_file, title, user_id="public"):
 
         public_url = f"{url}/storage/v1/object/public/showcase-images/{file_path}"
 
-        # Insert DB record using admin client (bypasses RLS) so user_id must be explicitly provided
-        admin_client.table("artworks").insert({"title": safe_title, "image_url": public_url, "user_id": user_id}).execute()
-
+        # NOTE: we intentionally DO NOT insert into the `artworks` table here because
+        # `user_id` in your table is a UUID that must reference an existing auth.user.
+        # Inserting with an invalid user_id (for example the literal string "public")
+        # causes a database error. To keep uploads working immediately, we upload
+        # files to the public storage bucket and show them from storage.
         st.success("Uploaded successfully")
+        st.write("Public URL:", public_url)
     except Exception as e:
         st.error(f"Upload failed: {e}")
 
@@ -93,13 +96,12 @@ def main():
         st.header("Upload")
         uploaded_file = st.file_uploader("Choose an image", type=list(ALLOWED_EXT), accept_multiple_files=False)
         title = st.text_input("Title")
-        user_id = st.text_input("User ID (uuid)", value="public")
-
         if st.button("Upload"):
             if not uploaded_file or not title:
                 st.warning("Provide a title and an image")
             else:
-                upload_artwork(url, admin, uploaded_file, title, user_id=user_id)
+                # Upload to storage only (no DB insert) to avoid invalid UUID errors
+                upload_artwork(url, admin, uploaded_file, title)
 
         st.markdown("---")
         if st.button("Refresh gallery"):
@@ -108,6 +110,23 @@ def main():
     with col1:
         st.header("Gallery")
         artworks = list_artworks(anon)
+
+        # If DB has no artworks or DB listing failed, fall back to listing storage objects
+        if not artworks:
+            try:
+                storage_client = admin or anon
+                res = storage_client.storage.from_("showcase-images").list()
+                objs = res.data or []
+                artworks = []
+                for o in objs:
+                    name = o.get("name") or o.get("Key") or o.get("path")
+                    if not name:
+                        continue
+                    public_url = f"{url}/storage/v1/object/public/showcase-images/{name}"
+                    artworks.append({"title": name, "image_url": public_url})
+            except Exception:
+                artworks = []
+
         if not artworks:
             st.info("No artworks found.")
             return
