@@ -2,7 +2,7 @@
 
 A premium digital asset management and showcase platform designed and curated by **Suvojit Santra**. This project demonstrates a robust secure backend combined with a minimalist, high-performance frontend interface.
 
-![Platform Preview](https://via.placeholder.com/800x400?text=Suvojit's+Gallery)
+
 
 ## Core Capabilities
 
